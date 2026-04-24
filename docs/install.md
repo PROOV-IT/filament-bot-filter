@@ -15,3 +15,9 @@ $panel->plugins([
 ```
 
 Then make sure the core package `proovit/laravel-bot-filter` is installed and its middleware is prepended globally in `bootstrap/app.php`.
+
+The plugin registers:
+
+- the bot probe resource
+- the bot filter settings page
+- the dashboard widgets when they are enabled in the runtime settings

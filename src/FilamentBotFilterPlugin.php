@@ -6,6 +6,8 @@ namespace Proovit\FilamentBotFilter;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Proovit\BotFilter\Contracts\BotFilterSettingsRepositoryInterface;
+use Proovit\FilamentBotFilter\Pages\BotFilterSettingsPage;
 use Proovit\FilamentBotFilter\Resources\BotProbeResource;
 use Proovit\FilamentBotFilter\Widgets\BotProbeStatsWidget;
 use Proovit\FilamentBotFilter\Widgets\BotProbeTopPathsWidget;
@@ -15,7 +17,7 @@ final class FilamentBotFilterPlugin implements Plugin
 {
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     public function getId(): string
@@ -33,8 +35,11 @@ final class FilamentBotFilterPlugin implements Plugin
             ->resources([
                 BotProbeResource::class,
             ])
+            ->pages([
+                BotFilterSettingsPage::class,
+            ])
             ->widgets(
-                (bool) config('filament-bot-filter.show_widgets', true)
+                $this->shouldShowWidgets()
                     ? [
                         BotProbeStatsWidget::class,
                         BotProbeTrendWidget::class,
@@ -47,5 +52,20 @@ final class FilamentBotFilterPlugin implements Plugin
     public function boot(Panel $panel): void
     {
         //
+    }
+
+    private function shouldShowWidgets(): bool
+    {
+        if (! (bool) config('filament-bot-filter.show_widgets', true)) {
+            return false;
+        }
+
+        try {
+            return (bool) app(BotFilterSettingsRepositoryInterface::class)
+                ->settings()
+                ->show_widgets;
+        } catch (\Throwable) {
+            return true;
+        }
     }
 }

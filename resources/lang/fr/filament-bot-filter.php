@@ -8,6 +8,79 @@ return [
             'navigation_group' => 'Sécurité',
         ],
     ],
+    'pages' => [
+        'settings' => [
+            'label' => 'Réglages bot filter',
+            'title' => 'Réglages bot filter',
+            'navigation_group' => 'Sécurité',
+            'sections' => [
+                'capture' => [
+                    'title' => 'Capture',
+                    'description' => 'Choisissez quels incidents doivent être capturés et transformés en sondes bot.',
+                ],
+                'ignore' => [
+                    'title' => 'Règles d’exclusion',
+                    'description' => 'Configurez les chemins, hôtes et exceptions qui ne doivent jamais créer de sonde.',
+                ],
+                'notifications' => [
+                    'title' => 'Notifications et affichage',
+                    'description' => 'Gérez les notifications de sondes et l’affichage des widgets dans Filament.',
+                ],
+            ],
+            'fields' => [
+                'capture_enabled' => 'Activer la capture',
+                'capture_exceptions' => 'Capturer les exceptions levées',
+                'capture_statuses' => 'Statuts HTTP capturés',
+                'ignore_paths' => 'Chemins exclus',
+                'ignore_hosts' => 'Hôtes exclus',
+                'ignore_panels' => 'Panels exclus',
+                'ignore_methods' => 'Méthodes HTTP exclues',
+                'ignore_exception_classes' => 'Classes d’exceptions exclues',
+                'notifications_enabled' => 'Activer les notifications',
+                'notification_mode' => 'Mode de notification',
+                'notification_mail' => 'Email de secours',
+                'notification_route' => 'Route de notification',
+                'custom_notification_class' => 'Classe de notification personnalisée',
+                'show_widgets' => 'Afficher les widgets du tableau de bord',
+            ],
+            'statuses' => [
+                '404' => '404 Non trouvé',
+                '405' => '405 Méthode non autorisée',
+            ],
+            'notification_modes' => [
+                'default' => 'Utiliser la notification du package',
+                'custom' => 'Utiliser la notification de l’application',
+            ],
+            'helpers' => [
+                'capture_enabled' => 'Désactivé, le middleware reste inactif.',
+                'capture_exceptions' => 'Quand c’est activé, les exceptions de routage levées peuvent aussi être enregistrées.',
+                'capture_statuses' => 'Ces statuts HTTP deviennent des sondes lorsque la réponse correspond.',
+                'ignore_paths' => 'Exemples : robots.txt, wp-login.php, phpinfo, settings.ini.',
+                'ignore_hosts' => 'Hôtes ou motifs globaux à ignorer.',
+                'ignore_panels' => 'Panels comme admin, manager ou b2b.',
+                'ignore_methods' => 'Verbes HTTP à ignorer, par exemple HEAD ou OPTIONS.',
+                'ignore_exception_classes' => 'Classes d’exceptions totalement qualifiées à ignorer.',
+                'notifications_enabled' => 'Coupe toutes les notifications sans désactiver la capture.',
+                'notification_mode' => 'Le mode par défaut utilise la notification du package. Le mode personnalisé attend une classe de notification applicative.',
+                'custom_notification_class' => 'FQCN facultatif d’une classe de notification qui accepte une sonde dans son constructeur.',
+                'notification_mail' => 'Email de secours utilisé pour la route de notification on-demand.',
+                'notification_route' => 'Cible optionnelle de la route on-demand. Laissez vide pour utiliser l’email de secours.',
+                'show_widgets' => 'Masque les widgets si vous souhaitez seulement la table des sondes.',
+            ],
+            'actions' => [
+                'save' => 'Enregistrer',
+                'reset_defaults' => 'Restaurer les valeurs par défaut',
+            ],
+            'notifications' => [
+                'saved' => [
+                    'title' => 'Réglages enregistrés',
+                ],
+                'reset_defaults' => [
+                    'title' => 'Valeurs par défaut restaurées',
+                ],
+            ],
+        ],
+    ],
     'fields' => [
         'path' => 'Chemin',
         'normalized_path' => 'Chemin normalisé',

@@ -55,6 +55,11 @@ final class BotProbeResource extends Resource
         return (string) __('filament-bot-filter::filament-bot-filter.resources.bot_probe.navigation_group');
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return (bool) config('filament-bot-filter.show_navigation', true);
+    }
+
     public static function getPages(): array
     {
         return [

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Proovit\FilamentBotFilter\Resources\BotProbeResource\Pages;
 
-use Proovit\FilamentBotFilter\Resources\BotProbeResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Proovit\FilamentBotFilter\Resources\BotProbeResource;
 
 final class ViewBotProbe extends ViewRecord
 {

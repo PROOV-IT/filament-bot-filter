@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Proovit\FilamentBotFilter\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Proovit\BotFilter\Models\BotProbe;
 
 final class BotProbeTopPathsWidget extends ChartWidget
 {
-    public function getHeading(): string|\Illuminate\Contracts\Support\Htmlable|null
+    public function getHeading(): string|Htmlable|null
     {
         return __('filament-bot-filter::filament-bot-filter.widgets.top_paths.heading');
     }
