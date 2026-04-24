@@ -100,6 +100,11 @@ final class BotFilterSettingsPage extends Page
         ];
     }
 
+    protected function hasFullWidthFormActions(): bool
+    {
+        return false;
+    }
+
     protected function getFormContentComponent(): Component
     {
         return Form::make([EmbeddedSchema::make('form')])
