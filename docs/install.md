@@ -21,3 +21,5 @@ The plugin registers:
 - the bot probe resource
 - the bot filter settings page
 - the dashboard widgets when they are enabled in the runtime settings
+
+The settings page also lets operators customize the subject and intro copy of the package notification when the default notification mode is used.

@@ -7,6 +7,7 @@ namespace Proovit\FilamentBotFilter\Support\Filament;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
@@ -85,6 +86,19 @@ final class BotFilterSettingsFormSchema
                             ->required()
                             ->live()
                             ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.notification_mode')),
+                        TextInput::make('notification_title')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.notification_title'))
+                            ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.notification_title'))
+                            ->visible(fn (Get $get): bool => $get('notification_mode') === 'default')
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.notification_title'))
+                            ->columnSpanFull(),
+                        Textarea::make('notification_intro')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.notification_intro'))
+                            ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.notification_intro'))
+                            ->rows(5)
+                            ->visible(fn (Get $get): bool => $get('notification_mode') === 'default')
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.notification_intro'))
+                            ->columnSpanFull(),
                         TextInput::make('custom_notification_class')
                             ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.custom_notification_class'))
                             ->placeholder('App\\Notifications\\BotProbeDetectedNotification')

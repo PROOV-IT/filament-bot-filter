@@ -16,3 +16,5 @@ Useful keys:
 The plugin does not capture requests on its own. It only provides the admin UI for incidents stored by `proovit/laravel-bot-filter`.
 
 The settings page writes to the runtime settings table from the core package. That means the Filament UI can enable or disable notifications, switch between default and custom notification modes, and hide the widgets without editing config files.
+
+When `notification_mode` is `default`, the settings page also controls the package notification subject (`notification_title`) and the intro copy displayed before the probe details (`notification_intro`).
