@@ -14,3 +14,4 @@ $panel->plugins([
 ]);
 ```
 
+Then make sure the core package `proovit/laravel-bot-filter` is installed and its middleware is prepended globally in `bootstrap/app.php`.

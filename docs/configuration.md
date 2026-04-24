@@ -10,3 +10,4 @@ Useful keys:
 - `show_navigation`
 - `show_widgets`
 
+The plugin does not capture requests on its own. It only provides the admin UI for incidents stored by `proovit/laravel-bot-filter`.
