@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Proovit\FilamentBotFilter\Support\Filament;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Proovit\BotFilter\Enums\BotProbeClassification;
 use Proovit\BotFilter\Enums\BotProbeStatus;
