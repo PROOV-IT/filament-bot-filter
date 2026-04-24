@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Proovit\FilamentBotFilter\Support\Filament;
 
-use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Proovit\BotFilter\Enums\BotProbeClassification;
 use Proovit\BotFilter\Enums\BotProbeStatus;
