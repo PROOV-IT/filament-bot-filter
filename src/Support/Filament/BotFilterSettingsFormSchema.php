@@ -14,6 +14,7 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Proovit\BotFilter\Contracts\BotFilterSettingsRepositoryInterface;
 
 final class BotFilterSettingsFormSchema
 {
@@ -86,6 +87,13 @@ final class BotFilterSettingsFormSchema
                             ->required()
                             ->live()
                             ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.notification_mode')),
+                        Select::make('active_ruleset')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.active_ruleset'))
+                            ->options(self::rulesetOptions())
+                            ->searchable()
+                            ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.active_ruleset'))
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.active_ruleset'))
+                            ->columnSpanFull(),
                         TextInput::make('notification_title')
                             ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.notification_title'))
                             ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.notification_title'))
@@ -113,8 +121,57 @@ final class BotFilterSettingsFormSchema
                             ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.notification_route'))
                             ->placeholder('contact@proov-it.io')
                             ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.notification_route')),
+                        Toggle::make('digest_enabled')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_enabled'))
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_enabled')),
+                        TextInput::make('digest_mail')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_mail'))
+                            ->email()
+                            ->placeholder('contact@proov-it.io')
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_mail')),
+                        TextInput::make('digest_title')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_title'))
+                            ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.digest_title'))
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_title')),
+                        Textarea::make('digest_intro')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_intro'))
+                            ->placeholder(__('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.digest_intro'))
+                            ->rows(4)
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_intro'))
+                            ->columnSpanFull(),
+                        TextInput::make('digest_window_hours')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_window_hours'))
+                            ->numeric()
+                            ->minValue(1)
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_window_hours')),
+                        Toggle::make('digest_notify_when_empty')
+                            ->label(__('filament-bot-filter::filament-bot-filter.pages.settings.fields.digest_notify_when_empty'))
+                            ->helperText(__('filament-bot-filter::filament-bot-filter.pages.settings.helpers.digest_notify_when_empty')),
                     ]),
                 ]),
         ]);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private static function rulesetOptions(): array
+    {
+        $options = [
+            '' => __('filament-bot-filter::filament-bot-filter.pages.settings.placeholders.active_ruleset'),
+        ];
+
+        foreach (app(BotFilterSettingsRepositoryInterface::class)->rulesets() as $ruleset) {
+            $key = (string) ($ruleset['key'] ?? '');
+            $label = (string) ($ruleset['label'] ?? $key);
+
+            if ($key === '') {
+                continue;
+            }
+
+            $options[$key] = $label;
+        }
+
+        return $options;
     }
 }

@@ -8,6 +8,7 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Proovit\BotFilter\Contracts\BotFilterSettingsRepositoryInterface;
 use Proovit\FilamentBotFilter\Pages\BotFilterSettingsPage;
+use Proovit\FilamentBotFilter\Resources\BotProbeSavedViewResource;
 use Proovit\FilamentBotFilter\Resources\BotProbeResource;
 use Proovit\FilamentBotFilter\Widgets\BotProbeStatsWidget;
 use Proovit\FilamentBotFilter\Widgets\BotProbeTopPathsWidget;
@@ -34,6 +35,7 @@ final class FilamentBotFilterPlugin implements Plugin
         $panel
             ->resources([
                 BotProbeResource::class,
+                BotProbeSavedViewResource::class,
             ])
             ->pages([
                 BotFilterSettingsPage::class,

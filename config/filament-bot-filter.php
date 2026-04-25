@@ -9,5 +9,8 @@ return [
     'show_settings_navigation' => env('FILAMENT_BOT_FILTER_SHOW_SETTINGS_NAVIGATION', true),
     'settings_navigation_icon' => env('FILAMENT_BOT_FILTER_SETTINGS_NAVIGATION_ICON', 'heroicon-o-cog-6-tooth'),
     'settings_navigation_sort' => env('FILAMENT_BOT_FILTER_SETTINGS_NAVIGATION_SORT', 98),
+    'show_saved_views_navigation' => env('FILAMENT_BOT_FILTER_SHOW_SAVED_VIEWS_NAVIGATION', true),
+    'saved_views_navigation_icon' => env('FILAMENT_BOT_FILTER_SAVED_VIEWS_NAVIGATION_ICON', 'heroicon-o-book-open'),
+    'saved_views_navigation_sort' => env('FILAMENT_BOT_FILTER_SAVED_VIEWS_NAVIGATION_SORT', 97),
     'show_widgets' => env('FILAMENT_BOT_FILTER_SHOW_WIDGETS', true),
 ];

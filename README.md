@@ -7,6 +7,7 @@ Filament 5 admin plugin for ProovIT bot and probe monitoring.
 - exposes a Filament resource for bot probes
 - adds a settings page to manage capture rules, ignore lists, and notification copy
 - provides table actions to classify incidents as bot, normal, or ignored
+- provides bulk classification actions and saved table views
 - ships with a detail page and editable status/classification form
 - adds stats and trend widgets
 - stays decoupled from the host app through the `proovit/laravel-bot-filter` core package
@@ -19,7 +20,12 @@ composer require proovit/filament-bot-filter
 ```
 
 You must also install and register `proovit/laravel-bot-filter` capture middleware for the plugin to show data.
-The plugin also exposes a Filament settings page where you can toggle notifications, choose between default and custom notification classes, customize the package notification title and intro copy, and manage the widget visibility.
+The plugin also exposes:
+
+- a Filament settings page where you can toggle notifications, choose between default and custom notification classes, customize the package notification title and intro copy, manage rulesets, and manage the widget visibility
+- digest notification settings, including mail target, title, intro, and window size
+- a saved views resource for probe investigation presets
+- row and bulk classification actions on the bot probe table
 
 ## Documentation
 

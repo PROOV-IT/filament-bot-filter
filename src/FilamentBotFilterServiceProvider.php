@@ -22,6 +22,14 @@ final class FilamentBotFilterServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/filament-bot-filter.php' => config_path('filament-bot-filter.php'),
             ], 'filament-bot-filter-config');
+
+            $this->publishes([
+                __DIR__.'/../database/migrations' => database_path('migrations'),
+            ], 'filament-bot-filter-migrations');
+        }
+
+        if ((bool) config('filament-bot-filter.enabled', true)) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 }

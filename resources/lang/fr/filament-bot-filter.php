@@ -7,6 +7,11 @@ return [
             'plural' => 'Sondes bot',
             'navigation_group' => 'Sécurité',
         ],
+        'saved_view' => [
+            'singular' => 'Vue sauvegardée',
+            'plural' => 'Vues sauvegardées',
+            'navigation_group' => 'Sécurité',
+        ],
     ],
     'pages' => [
         'settings' => [
@@ -119,6 +124,59 @@ return [
         'mark_normal' => 'Marquer normal',
         'mark_ignored' => 'Ignorer',
         'reset_review' => 'Réinitialiser',
+    ],
+    'bulk_actions' => [
+        'updated' => 'Mise à jour groupée terminée',
+        'count' => ':count enregistrement(s) mis à jour.',
+    ],
+    'saved_views' => [
+        'singular' => 'Vue sauvegardée',
+        'plural' => 'Vues sauvegardées',
+        'navigation_group' => 'Sécurité',
+        'sections' => [
+            'metadata' => [
+                'title' => 'Métadonnées',
+                'description' => 'Donnez un nom lisible à cette vue et une description optionnelle.',
+            ],
+        ],
+        'fields' => [
+            'name' => 'Nom',
+            'description' => 'Description',
+            'panel' => 'Panel',
+            'is_default' => 'Vue par défaut',
+            'search' => 'Recherche globale',
+            'sort' => 'Tri',
+            'filters' => 'Filtres',
+            'column_searches' => 'Recherches de colonnes',
+            'applied_count' => 'Nombre d’utilisations',
+            'last_applied_at' => 'Dernière utilisation',
+            'updated_at' => 'Modifié le',
+            'saved_view' => 'Vue sauvegardée',
+        ],
+        'placeholders' => [
+            'panel' => 'Tous les panels',
+            'any' => 'Tous',
+        ],
+        'values' => [
+            'yes' => 'Oui',
+            'no' => 'Non',
+        ],
+        'actions' => [
+            'save_current_view' => 'Enregistrer la vue courante',
+            'load_view' => 'Charger une vue',
+            'manage' => 'Gérer les vues',
+        ],
+        'notifications' => [
+            'saved' => [
+                'title' => 'Vue sauvegardée enregistrée',
+            ],
+            'loaded' => [
+                'title' => 'Vue sauvegardée chargée',
+            ],
+        ],
+        'scopes' => [
+            'global' => 'Tous les panels',
+        ],
     ],
     'widgets' => [
         'stats' => [

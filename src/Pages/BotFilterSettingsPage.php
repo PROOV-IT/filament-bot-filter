@@ -64,7 +64,10 @@ final class BotFilterSettingsPage extends Page
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return __('filament-bot-filter::filament-bot-filter.pages.settings.navigation_group');
+        return (string) config(
+            'filament-bot-filter.navigation_group',
+            __('filament-bot-filter::filament-bot-filter.pages.settings.navigation_group')
+        );
     }
 
     public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
@@ -166,7 +169,14 @@ final class BotFilterSettingsPage extends Page
             'notification_mail' => (string) ($settings->notification_mail ?? ''),
             'notification_route' => (string) ($settings->notification_route ?? ''),
             'custom_notification_class' => (string) ($settings->custom_notification_class ?? ''),
+            'active_ruleset' => (string) ($settings->active_ruleset ?? ''),
             'show_widgets' => (bool) $settings->show_widgets,
+            'digest_enabled' => (bool) $settings->digest_enabled,
+            'digest_mail' => (string) ($settings->digest_mail ?? ''),
+            'digest_title' => (string) ($settings->digest_title ?? ''),
+            'digest_intro' => (string) ($settings->digest_intro ?? ''),
+            'digest_window_hours' => (int) ($settings->digest_window_hours ?? 24),
+            'digest_notify_when_empty' => (bool) $settings->digest_notify_when_empty,
         ];
     }
 
@@ -202,7 +212,14 @@ final class BotFilterSettingsPage extends Page
             'notification_mail' => filled($state['notification_mail'] ?? null) ? trim((string) $state['notification_mail']) : null,
             'notification_route' => filled($state['notification_route'] ?? null) ? trim((string) $state['notification_route']) : null,
             'custom_notification_class' => filled($state['custom_notification_class'] ?? null) ? trim((string) $state['custom_notification_class']) : null,
+            'active_ruleset' => filled($state['active_ruleset'] ?? null) ? trim((string) $state['active_ruleset']) : null,
             'show_widgets' => (bool) ($state['show_widgets'] ?? false),
+            'digest_enabled' => (bool) ($state['digest_enabled'] ?? false),
+            'digest_mail' => filled($state['digest_mail'] ?? null) ? trim((string) $state['digest_mail']) : null,
+            'digest_title' => filled($state['digest_title'] ?? null) ? trim((string) $state['digest_title']) : null,
+            'digest_intro' => filled($state['digest_intro'] ?? null) ? trim((string) $state['digest_intro']) : null,
+            'digest_window_hours' => max(1, (int) ($state['digest_window_hours'] ?? 24)),
+            'digest_notify_when_empty' => (bool) ($state['digest_notify_when_empty'] ?? false),
         ];
     }
 

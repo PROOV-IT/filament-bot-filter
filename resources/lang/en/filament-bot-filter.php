@@ -7,6 +7,11 @@ return [
             'plural' => 'Bot probes',
             'navigation_group' => 'Security',
         ],
+        'saved_view' => [
+            'singular' => 'Saved view',
+            'plural' => 'Saved views',
+            'navigation_group' => 'Security',
+        ],
     ],
     'pages' => [
         'settings' => [
@@ -119,6 +124,59 @@ return [
         'mark_normal' => 'Mark normal',
         'mark_ignored' => 'Ignore',
         'reset_review' => 'Reset review',
+    ],
+    'bulk_actions' => [
+        'updated' => 'Bulk update completed',
+        'count' => ':count record(s) updated.',
+    ],
+    'saved_views' => [
+        'singular' => 'Saved view',
+        'plural' => 'Saved views',
+        'navigation_group' => 'Security',
+        'sections' => [
+            'metadata' => [
+                'title' => 'Metadata',
+                'description' => 'Give this view a readable name and optional description.',
+            ],
+        ],
+        'fields' => [
+            'name' => 'Name',
+            'description' => 'Description',
+            'panel' => 'Panel',
+            'is_default' => 'Default view',
+            'search' => 'Global search',
+            'sort' => 'Sort',
+            'filters' => 'Filters',
+            'column_searches' => 'Column searches',
+            'applied_count' => 'Applied count',
+            'last_applied_at' => 'Last applied at',
+            'updated_at' => 'Updated at',
+            'saved_view' => 'Saved view',
+        ],
+        'placeholders' => [
+            'panel' => 'Any panel',
+            'any' => 'Any',
+        ],
+        'values' => [
+            'yes' => 'Yes',
+            'no' => 'No',
+        ],
+        'actions' => [
+            'save_current_view' => 'Save current view',
+            'load_view' => 'Load saved view',
+            'manage' => 'Manage saved views',
+        ],
+        'notifications' => [
+            'saved' => [
+                'title' => 'Saved view stored',
+            ],
+            'loaded' => [
+                'title' => 'Saved view loaded',
+            ],
+        ],
+        'scopes' => [
+            'global' => 'All panels',
+        ],
     ],
     'widgets' => [
         'stats' => [

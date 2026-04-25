@@ -21,10 +21,6 @@ final class BotProbeResource extends Resource
 
     protected static ?string $slug = 'security/bot-probes';
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shield-exclamation';
-
-    protected static ?int $navigationSort = 99;
-
     public static function getModelLabel(): string
     {
         return __('filament-bot-filter::filament-bot-filter.resources.bot_probe.singular');
@@ -52,7 +48,20 @@ final class BotProbeResource extends Resource
 
     public static function getNavigationGroup(): string
     {
-        return (string) __('filament-bot-filter::filament-bot-filter.resources.bot_probe.navigation_group');
+        return (string) config(
+            'filament-bot-filter.navigation_group',
+            __('filament-bot-filter::filament-bot-filter.resources.bot_probe.navigation_group')
+        );
+    }
+
+    public static function getNavigationIcon(): string|\BackedEnum|null
+    {
+        return (string) config('filament-bot-filter.navigation_icon', 'heroicon-o-shield-exclamation');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return (int) config('filament-bot-filter.navigation_sort', 99);
     }
 
     public static function shouldRegisterNavigation(): bool

@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace Proovit\FilamentBotFilter\Support\Filament;
 
 use Filament\Actions\Action;
+use Filament\Actions\BulkAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table as FilamentTable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+use Filament\Notifications\Notification;
 use Proovit\BotFilter\BotFilter;
 use Proovit\BotFilter\Enums\BotProbeClassification;
 use Proovit\BotFilter\Enums\BotProbeStatus;
@@ -89,6 +94,102 @@ final class BotProbeTable
                     ->action(function (BotProbe $record): void {
                         $record->markAsPending();
                     }),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    BulkAction::make('mark_bot')
+                        ->label(__('filament-bot-filter::filament-bot-filter.actions.mark_bot'))
+                        ->icon('heroicon-o-no-symbol')
+                        ->color('danger')
+                        ->action(function (Collection $records): void {
+                            $updated = 0;
+
+                            foreach ($records as $record) {
+                                if (! $record instanceof BotProbe) {
+                                    continue;
+                                }
+
+                                app(BotFilter::class)->classify($record, BotProbeClassification::Bot);
+                                $updated++;
+                            }
+
+                            Notification::make()
+                                ->title(__('filament-bot-filter::filament-bot-filter.bulk_actions.updated'))
+                                ->body(__('filament-bot-filter::filament-bot-filter.bulk_actions.count', ['count' => $updated]))
+                                ->success()
+                                ->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('mark_normal')
+                        ->label(__('filament-bot-filter::filament-bot-filter.actions.mark_normal'))
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(function (Collection $records): void {
+                            $updated = 0;
+
+                            foreach ($records as $record) {
+                                if (! $record instanceof BotProbe) {
+                                    continue;
+                                }
+
+                                app(BotFilter::class)->classify($record, BotProbeClassification::Normal);
+                                $updated++;
+                            }
+
+                            Notification::make()
+                                ->title(__('filament-bot-filter::filament-bot-filter.bulk_actions.updated'))
+                                ->body(__('filament-bot-filter::filament-bot-filter.bulk_actions.count', ['count' => $updated]))
+                                ->success()
+                                ->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('mark_ignored')
+                        ->label(__('filament-bot-filter::filament-bot-filter.actions.mark_ignored'))
+                        ->icon('heroicon-o-eye-slash')
+                        ->color('gray')
+                        ->action(function (Collection $records): void {
+                            $updated = 0;
+
+                            foreach ($records as $record) {
+                                if (! $record instanceof BotProbe) {
+                                    continue;
+                                }
+
+                                app(BotFilter::class)->classify($record, BotProbeClassification::Ignored);
+                                $updated++;
+                            }
+
+                            Notification::make()
+                                ->title(__('filament-bot-filter::filament-bot-filter.bulk_actions.updated'))
+                                ->body(__('filament-bot-filter::filament-bot-filter.bulk_actions.count', ['count' => $updated]))
+                                ->success()
+                                ->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('reset_review')
+                        ->label(__('filament-bot-filter::filament-bot-filter.actions.reset_review'))
+                        ->icon('heroicon-o-arrow-path')
+                        ->action(function (Collection $records): void {
+                            $updated = 0;
+
+                            foreach ($records as $record) {
+                                if (! $record instanceof BotProbe) {
+                                    continue;
+                                }
+
+                                $record->markAsPending();
+                                $updated++;
+                            }
+
+                            Notification::make()
+                                ->title(__('filament-bot-filter::filament-bot-filter.bulk_actions.updated'))
+                                ->body(__('filament-bot-filter::filament-bot-filter.bulk_actions.count', ['count' => $updated]))
+                                ->success()
+                                ->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
+                    DeleteBulkAction::make(),
+                ]),
             ])
             ->modifyQueryUsing(static function (Builder $query): Builder {
                 return $query->orderByDesc('last_seen_at')->orderByDesc('count');
