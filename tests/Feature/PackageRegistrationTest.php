@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use Proovit\FilamentBotFilter\FilamentBotFilterPlugin;
-use Proovit\FilamentBotFilter\Resources\BotProbeSavedViewResource;
+use Proovit\FilamentUrlWatcher\FilamentUrlWatcherPlugin;
+use Proovit\FilamentUrlWatcher\Resources\UrlWatchEventResource;
+use Proovit\FilamentUrlWatcher\Resources\UrlWatchSavedViewResource;
 
-it('registers the filament bot filter plugin', function (): void {
-    expect(FilamentBotFilterPlugin::make()->getId())->toBe('bot-filter');
-    expect(BotProbeSavedViewResource::shouldRegisterNavigation())->toBeTrue();
+it('registers the filament URL watcher plugin', function (): void {
+    expect(FilamentUrlWatcherPlugin::make()->getId())->toBe('url-watcher');
+    expect(UrlWatchEventResource::shouldRegisterNavigation())->toBeTrue();
+    expect(UrlWatchSavedViewResource::shouldRegisterNavigation())->toBeTrue();
 });

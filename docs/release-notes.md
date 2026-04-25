@@ -2,11 +2,11 @@
 
 ## 0.1.0
 
-- initial Filament bot filter plugin scaffold
+- initial Filament URL watcher plugin scaffold
 - resource, detail page, edit page, and widgets
 
 ## 0.2.0
 
-- saved bot probe views
-- bulk classification actions on the bot probe table
-- configurable navigation for the bot probe and saved view resources
+- saved URL watch views
+- bulk classification actions on the URL watch table
+- configurable navigation for the URL watch and saved view resources
