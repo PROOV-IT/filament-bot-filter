@@ -13,6 +13,10 @@ final class UrlWatchSavedView extends Model
 {
     use HasUuids;
 
+    public const TARGET_WATCHES = 'watches';
+
+    public const TARGET_EVENTS = 'events';
+
     protected $guarded = [];
 
     public $incrementing = false;
@@ -41,7 +45,7 @@ final class UrlWatchSavedView extends Model
      * @param  array<string, mixed>  $state
      * @return array<string, mixed>
      */
-    public static function captureFromPageState(array $state, ?string $panel = null): array
+    public static function captureFromPageState(array $state, ?string $panel = null, string $target = self::TARGET_WATCHES): array
     {
         $sort = trim((string) ($state['sort'] ?? ''));
         $sortColumn = null;
@@ -53,6 +57,7 @@ final class UrlWatchSavedView extends Model
         }
 
         return [
+            'target' => in_array($target, [self::TARGET_WATCHES, self::TARGET_EVENTS], true) ? $target : self::TARGET_WATCHES,
             'panel' => filled($panel) ? trim((string) $panel) : null,
             'search' => filled($state['search'] ?? null) ? trim((string) $state['search']) : null,
             'sort_column' => filled($sortColumn) ? $sortColumn : null,
@@ -151,8 +156,21 @@ final class UrlWatchSavedView extends Model
         return $query->when(filled($panel), static fn ($query) => $query->where('panel', $panel));
     }
 
+    public function scopeForTarget(Builder $query, string $target): Builder
+    {
+        return $query->where('target', $target);
+    }
+
     public function getPanelLabelAttribute(): string
     {
         return filled($this->panel) ? (string) $this->panel : __('filament-url-watcher::filament-url-watcher.saved_views.scopes.global');
+    }
+
+    public function getTargetLabelAttribute(): string
+    {
+        return match ((string) $this->target) {
+            self::TARGET_EVENTS => __('filament-url-watcher::filament-url-watcher.saved_views.targets.events'),
+            default => __('filament-url-watcher::filament-url-watcher.saved_views.targets.watches'),
+        };
     }
 }

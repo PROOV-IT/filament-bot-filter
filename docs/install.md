@@ -24,6 +24,11 @@ The plugin registers:
 - the URL watcher settings page
 - the dashboard widgets when they are enabled in the runtime settings
 
+The saved views flow now works on both:
+
+- aggregated URL watches
+- event history tables
+
 The settings page also lets operators customize the subject and intro copy of the package notification when the default notification mode is used.
 
 The URL watch resource provides:
@@ -34,3 +39,8 @@ The URL watch resource provides:
 - header actions to save and load table views
 
 Saved views persist the table search, sorting, filters and column searches so operators can switch between investigation presets with one click.
+
+The settings page also exposes operator actions to:
+
+- send the digest immediately
+- run the retention command immediately

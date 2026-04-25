@@ -11,6 +11,7 @@ use Proovit\FilamentUrlWatcher\Resources\UrlWatchEventResource;
 use Proovit\FilamentUrlWatcher\Resources\UrlWatchResource;
 use Proovit\FilamentUrlWatcher\Resources\UrlWatchSavedViewResource;
 use Proovit\FilamentUrlWatcher\Widgets\UrlWatchStatsWidget;
+use Proovit\FilamentUrlWatcher\Widgets\UrlWatchTopHostsWidget;
 use Proovit\FilamentUrlWatcher\Widgets\UrlWatchTopPathsWidget;
 use Proovit\FilamentUrlWatcher\Widgets\UrlWatchTrendWidget;
 use Proovit\UrlWatcher\Contracts\UrlWatcherSettingsRepositoryInterface;
@@ -48,6 +49,7 @@ final class FilamentUrlWatcherPlugin implements Plugin
                         UrlWatchStatsWidget::class,
                         UrlWatchTrendWidget::class,
                         UrlWatchTopPathsWidget::class,
+                        UrlWatchTopHostsWidget::class,
                     ]
                     : []
             );

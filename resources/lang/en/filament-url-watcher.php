@@ -55,7 +55,11 @@ return [
                 'digest_title' => 'Digest title',
                 'digest_intro' => 'Digest intro',
                 'digest_window_hours' => 'Digest window (hours)',
+                'digest_recent_events_limit' => 'Recent events in digest',
                 'digest_notify_when_empty' => 'Send empty digests',
+                'retention_enabled' => 'Enable retention',
+                'retention_days' => 'Retention window (days)',
+                'retention_prune_aggregates' => 'Prune archived aggregate watches',
             ],
             'statuses' => [
                 '404' => '404 Not Found',
@@ -88,7 +92,11 @@ return [
                 'digest_title' => 'Custom digest subject line.',
                 'digest_intro' => 'Optional intro lines displayed before the digest summary.',
                 'digest_window_hours' => 'Rolling time window used to build the digest.',
+                'digest_recent_events_limit' => 'Number of recent events appended to the digest.',
                 'digest_notify_when_empty' => 'When enabled, an empty digest is still sent when nothing happened.',
+                'retention_enabled' => 'Enable automatic pruning of old URL watch history.',
+                'retention_days' => 'Events older than this threshold are eligible for pruning.',
+                'retention_prune_aggregates' => 'Also delete archived/reviewed aggregate watches when they no longer have any events.',
             ],
             'placeholders' => [
                 'active_ruleset' => 'Automatic ruleset matching',
@@ -100,6 +108,8 @@ return [
             'actions' => [
                 'save' => 'Save changes',
                 'reset_defaults' => 'Reset defaults',
+                'send_digest' => 'Send digest now',
+                'run_retention' => 'Run retention now',
             ],
             'notifications' => [
                 'saved' => [
@@ -107,6 +117,12 @@ return [
                 ],
                 'reset_defaults' => [
                     'title' => 'Defaults restored',
+                ],
+                'command_ran' => [
+                    'title' => 'Command executed',
+                ],
+                'command_missing' => [
+                    'title' => 'Command unavailable',
                 ],
             ],
         ],
@@ -175,6 +191,7 @@ return [
         'fields' => [
             'name' => 'Name',
             'description' => 'Description',
+            'target' => 'Target',
             'panel' => 'Panel',
             'is_default' => 'Default view',
             'search' => 'Global search',
@@ -193,6 +210,10 @@ return [
         'values' => [
             'yes' => 'Yes',
             'no' => 'No',
+        ],
+        'targets' => [
+            'watches' => 'Watches',
+            'events' => 'Events history',
         ],
         'actions' => [
             'save_current_view' => 'Save current view',
@@ -227,10 +248,14 @@ return [
         ],
         'trend' => [
             'heading' => 'Event trend',
-            'events' => 'Events',
+            'probes' => 'Events',
         ],
         'top_paths' => [
             'heading' => 'Top watched paths',
+            'hits' => 'Hits',
+        ],
+        'top_hosts' => [
+            'heading' => 'Top watched hosts',
             'hits' => 'Hits',
         ],
     ],

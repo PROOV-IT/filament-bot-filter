@@ -59,6 +59,7 @@ final class ListUrlWatches extends ManageRecords
                         'filters' => $this->tableDeferredFilters ?? $this->tableFilters ?? [],
                         'column_searches' => $this->tableColumnSearches ?? [],
                     ], $data['panel'] ?: (Filament::getCurrentPanel()?->getId()));
+                    $payload['target'] = UrlWatchSavedView::TARGET_WATCHES;
 
                     $savedView = UrlWatchSavedView::query()->create(array_merge($payload, [
                         'name' => trim((string) $data['name']),
@@ -70,6 +71,7 @@ final class ListUrlWatches extends ManageRecords
                         UrlWatchSavedView::query()
                             ->whereKeyNot($savedView->getKey())
                             ->where('panel', $savedView->panel)
+                            ->where('target', $savedView->target)
                             ->update(['is_default' => false]);
                     }
 
@@ -90,6 +92,7 @@ final class ListUrlWatches extends ManageRecords
                             $panelId = Filament::getCurrentPanel()?->getId();
 
                             return UrlWatchSavedView::query()
+                                ->forTarget(UrlWatchSavedView::TARGET_WATCHES)
                                 ->when(filled($panelId), function ($query) use ($panelId): void {
                                     $query->where(function ($query) use ($panelId): void {
                                         $query->whereNull('panel')->orWhere('panel', $panelId);

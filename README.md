@@ -8,9 +8,9 @@ Filament 5 admin plugin for ProovIT URL watcher monitoring.
 - exposes a Filament resource for detailed URL watch events
 - adds a settings page to manage capture rules, ignore lists, and notification copy
 - provides table actions to classify incidents as bot, normal, or ignored
-- provides bulk classification actions and saved table views
+- provides bulk classification actions and saved table views for watches and events
 - ships with a detail page and editable status/classification form
-- adds stats and trend widgets
+- adds stats, trend, top paths, and top hosts widgets
 - stays decoupled from the host app through the `proovit/laravel-url-watcher` core package
 - only displays incidents already captured by the core middleware
 
@@ -24,7 +24,7 @@ You must also install and register `proovit/laravel-url-watcher` capture middlew
 The plugin also exposes:
 
 - a Filament settings page where you can toggle notifications, choose between default and custom notification classes, customize the package notification title and intro copy, manage rulesets, and manage the widget visibility
-- digest notification settings, including mail target, title, intro, and window size
+- digest and retention settings, including mail target, title, intro, recent event count, and pruning window
 - a saved views resource for URL watch investigation presets
 - row and bulk classification actions on the URL watch table
 

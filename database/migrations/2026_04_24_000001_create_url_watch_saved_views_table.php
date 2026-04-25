@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('target', 32)->default('watches')->index();
             $table->string('panel')->nullable()->index();
             $table->boolean('is_default')->default(false)->index();
             $table->string('search')->nullable();

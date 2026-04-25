@@ -14,9 +14,11 @@ use Filament\Schemas\Components\EmbeddedSchema;
 use Filament\Schemas\Components\Form;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Artisan;
 use Proovit\FilamentUrlWatcher\Support\Filament\UrlWatcherSettingsFormSchema;
 use Proovit\UrlWatcher\Contracts\UrlWatcherSettingsRepositoryInterface;
 use Proovit\UrlWatcher\Models\UrlWatcherSetting;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 use UnitEnum;
 
 final class UrlWatcherSettingsPage extends Page
@@ -83,6 +85,22 @@ final class UrlWatcherSettingsPage extends Page
     public static function shouldRegisterNavigation(): bool
     {
         return (bool) config('filament-url-watcher.show_settings_navigation', true);
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('send_digest')
+                ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.actions.send_digest'))
+                ->icon('heroicon-o-envelope')
+                ->color('gray')
+                ->action(fn () => $this->runCommand('url-watcher:digest')),
+            Action::make('run_retention')
+                ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.actions.run_retention'))
+                ->icon('heroicon-o-archive-box-x-mark')
+                ->color('gray')
+                ->action(fn () => $this->runCommand('url-watcher:prune')),
+        ];
     }
 
     /**
@@ -177,6 +195,10 @@ final class UrlWatcherSettingsPage extends Page
             'digest_intro' => (string) ($settings->digest_intro ?? ''),
             'digest_window_hours' => (int) ($settings->digest_window_hours ?? 24),
             'digest_notify_when_empty' => (bool) $settings->digest_notify_when_empty,
+            'digest_recent_events_limit' => (int) ($settings->digest_recent_events_limit ?? 10),
+            'retention_enabled' => (bool) $settings->retention_enabled,
+            'retention_days' => (int) ($settings->retention_days ?? 30),
+            'retention_prune_aggregates' => (bool) $settings->retention_prune_aggregates,
         ];
     }
 
@@ -220,11 +242,35 @@ final class UrlWatcherSettingsPage extends Page
             'digest_intro' => filled($state['digest_intro'] ?? null) ? trim((string) $state['digest_intro']) : null,
             'digest_window_hours' => max(1, (int) ($state['digest_window_hours'] ?? 24)),
             'digest_notify_when_empty' => (bool) ($state['digest_notify_when_empty'] ?? false),
+            'digest_recent_events_limit' => max(1, (int) ($state['digest_recent_events_limit'] ?? 10)),
+            'retention_enabled' => (bool) ($state['retention_enabled'] ?? false),
+            'retention_days' => max(1, (int) ($state['retention_days'] ?? 30)),
+            'retention_prune_aggregates' => (bool) ($state['retention_prune_aggregates'] ?? false),
         ];
     }
 
     private function settingsRepository(): UrlWatcherSettingsRepositoryInterface
     {
         return app(UrlWatcherSettingsRepositoryInterface::class);
+    }
+
+    private function runCommand(string $command): void
+    {
+        try {
+            Artisan::call($command);
+        } catch (CommandNotFoundException) {
+            Notification::make()
+                ->title(__('filament-url-watcher::filament-url-watcher.pages.settings.notifications.command_missing.title'))
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        Notification::make()
+            ->title(__('filament-url-watcher::filament-url-watcher.pages.settings.notifications.command_ran.title'))
+            ->body(trim(Artisan::output()))
+            ->success()
+            ->send();
     }
 }

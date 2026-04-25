@@ -55,7 +55,11 @@ return [
                 'digest_title' => 'Titre du digest',
                 'digest_intro' => 'Introduction du digest',
                 'digest_window_hours' => 'Fenêtre du digest (heures)',
+                'digest_recent_events_limit' => 'Événements récents dans le digest',
                 'digest_notify_when_empty' => 'Envoyer même vide',
+                'retention_enabled' => 'Activer la rétention',
+                'retention_days' => 'Fenêtre de rétention (jours)',
+                'retention_prune_aggregates' => 'Purger les agrégats archivés',
             ],
             'statuses' => [
                 '404' => '404 Introuvable',
@@ -88,7 +92,11 @@ return [
                 'digest_title' => 'Sujet personnalisé du digest.',
                 'digest_intro' => 'Lignes d’introduction optionnelles affichées avant le résumé.',
                 'digest_window_hours' => 'Fenêtre temporelle glissante utilisée pour construire le digest.',
+                'digest_recent_events_limit' => 'Nombre d’événements récents ajoutés à la fin du digest.',
                 'digest_notify_when_empty' => 'Quand c’est activé, un digest vide est quand même envoyé.',
+                'retention_enabled' => 'Active la purge automatique des anciens événements URL watcher.',
+                'retention_days' => 'Les événements plus anciens que ce seuil sont éligibles à la purge.',
+                'retention_prune_aggregates' => 'Supprime aussi les agrégats archivés/révisés qui n’ont plus d’événements.',
             ],
             'placeholders' => [
                 'active_ruleset' => 'Matching automatique du ruleset',
@@ -100,6 +108,8 @@ return [
             'actions' => [
                 'save' => 'Enregistrer',
                 'reset_defaults' => 'Réinitialiser les valeurs par défaut',
+                'send_digest' => 'Envoyer le digest',
+                'run_retention' => 'Lancer la rétention',
             ],
             'notifications' => [
                 'saved' => [
@@ -107,6 +117,12 @@ return [
                 ],
                 'reset_defaults' => [
                     'title' => 'Valeurs par défaut restaurées',
+                ],
+                'command_ran' => [
+                    'title' => 'Commande exécutée',
+                ],
+                'command_missing' => [
+                    'title' => 'Commande indisponible',
                 ],
             ],
         ],
@@ -175,6 +191,7 @@ return [
         'fields' => [
             'name' => 'Nom',
             'description' => 'Description',
+            'target' => 'Cible',
             'panel' => 'Panel',
             'is_default' => 'Vue par défaut',
             'search' => 'Recherche globale',
@@ -193,6 +210,10 @@ return [
         'values' => [
             'yes' => 'Oui',
             'no' => 'Non',
+        ],
+        'targets' => [
+            'watches' => 'Surveillances',
+            'events' => 'Historique des événements',
         ],
         'actions' => [
             'save_current_view' => 'Enregistrer la vue courante',
@@ -227,10 +248,14 @@ return [
         ],
         'trend' => [
             'heading' => 'Tendance des événements',
-            'events' => 'Événements',
+            'probes' => 'Événements',
         ],
         'top_paths' => [
             'heading' => 'Chemins les plus surveillés',
+            'hits' => 'Hits',
+        ],
+        'top_hosts' => [
+            'heading' => 'Hôtes les plus surveillés',
             'hits' => 'Hits',
         ],
     ],

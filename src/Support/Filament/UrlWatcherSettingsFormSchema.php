@@ -144,9 +144,25 @@ final class UrlWatcherSettingsFormSchema
                             ->numeric()
                             ->minValue(1)
                             ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.digest_window_hours')),
+                        TextInput::make('digest_recent_events_limit')
+                            ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.fields.digest_recent_events_limit'))
+                            ->numeric()
+                            ->minValue(1)
+                            ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.digest_recent_events_limit')),
                         Toggle::make('digest_notify_when_empty')
                             ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.fields.digest_notify_when_empty'))
                             ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.digest_notify_when_empty')),
+                        Toggle::make('retention_enabled')
+                            ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.fields.retention_enabled'))
+                            ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.retention_enabled')),
+                        TextInput::make('retention_days')
+                            ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.fields.retention_days'))
+                            ->numeric()
+                            ->minValue(1)
+                            ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.retention_days')),
+                        Toggle::make('retention_prune_aggregates')
+                            ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.fields.retention_prune_aggregates'))
+                            ->helperText(__('filament-url-watcher::filament-url-watcher.pages.settings.helpers.retention_prune_aggregates')),
                     ]),
                 ]),
         ]);

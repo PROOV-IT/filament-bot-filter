@@ -27,6 +27,9 @@ final class UrlWatchSavedViewTable
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.name'))
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('target_label')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.target'))
+                    ->sortable(query: fn (Builder $query, string $direction): Builder => $query->orderBy('target', $direction)),
                 TextColumn::make('panel_label')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel'))
                     ->sortable(query: fn (Builder $query, string $direction): Builder => $query->orderBy('panel', $direction)),
@@ -55,6 +58,12 @@ final class UrlWatchSavedViewTable
                     ->sortable(),
             ])
             ->filters([
+                SelectFilter::make('target')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.target'))
+                    ->options([
+                        'watches' => __('filament-url-watcher::filament-url-watcher.saved_views.targets.watches'),
+                        'events' => __('filament-url-watcher::filament-url-watcher.saved_views.targets.events'),
+                    ]),
                 SelectFilter::make('panel')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel'))
                     ->options([

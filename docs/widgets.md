@@ -5,6 +5,7 @@ The plugin ships with:
 - `UrlWatchStatsWidget`
 - `UrlWatchTrendWidget`
 - `UrlWatchTopPathsWidget`
+- `UrlWatchTopHostsWidget`
 
 They all rely on the core `url_watches` table and can be replaced by your own widgets if needed.
 The trend and top-path charts also benefit from the detailed `url_watch_events` history table.

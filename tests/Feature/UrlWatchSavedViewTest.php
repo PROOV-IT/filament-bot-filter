@@ -10,9 +10,10 @@ it('captures a saved view state from table filters and sorting', function (): vo
         'sort' => 'last_seen_at:desc',
         'filters' => ['status' => ['value' => 'pending']],
         'column_searches' => ['host' => 'example.com'],
-    ], 'admin');
+    ], 'admin', UrlWatchSavedView::TARGET_EVENTS);
 
     expect($payload)->toMatchArray([
+        'target' => 'events',
         'panel' => 'admin',
         'search' => 'robots',
         'sort_column' => 'last_seen_at',
@@ -25,6 +26,7 @@ it('captures a saved view state from table filters and sorting', function (): vo
 it('applies a saved view to a table-like page object', function (): void {
     $view = UrlWatchSavedView::query()->create([
         'name' => 'Admin view',
+        'target' => UrlWatchSavedView::TARGET_WATCHES,
         'panel' => 'admin',
         'search' => 'robots',
         'sort_column' => 'last_seen_at',
@@ -93,4 +95,13 @@ it('applies a saved view to a table-like page object', function (): void {
         ->and($page->updatedSortCalls)->toBeGreaterThan(0)
         ->and($page->updatedColumnSearchesCalls)->toBeGreaterThan(0)
         ->and($page->resetPageCalls)->toBeGreaterThan(0);
+});
+
+it('exposes a translated target label', function (): void {
+    $view = UrlWatchSavedView::query()->create([
+        'name' => 'Events view',
+        'target' => UrlWatchSavedView::TARGET_EVENTS,
+    ]);
+
+    expect($view->target_label)->toBeString()->not->toBe('');
 });

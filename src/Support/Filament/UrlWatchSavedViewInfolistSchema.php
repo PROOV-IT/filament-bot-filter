@@ -17,6 +17,8 @@ final class UrlWatchSavedViewInfolistSchema
             Grid::make(2)->schema([
                 TextEntry::make('name')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.name')),
+                TextEntry::make('target_label')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.target')),
                 TextEntry::make('panel_label')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel')),
                 TextEntry::make('is_default')

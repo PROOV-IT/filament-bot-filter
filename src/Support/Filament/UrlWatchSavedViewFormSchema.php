@@ -25,6 +25,13 @@ final class UrlWatchSavedViewFormSchema
                             ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.name'))
                             ->required()
                             ->maxLength(255),
+                        Select::make('target')
+                            ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.target'))
+                            ->options([
+                                'watches' => __('filament-url-watcher::filament-url-watcher.saved_views.targets.watches'),
+                                'events' => __('filament-url-watcher::filament-url-watcher.saved_views.targets.events'),
+                            ])
+                            ->required(),
                         Select::make('panel')
                             ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel'))
                             ->options(self::panelOptions())
