@@ -69,25 +69,39 @@ final class UrlWatchSavedView extends Model
 
     public function applyToPage(object $page): void
     {
+        self::applyStateToPage([
+            'filters' => $this->filters ?? [],
+            'column_searches' => $this->column_searches ?? [],
+            'search' => $this->search,
+            'sort_column' => $this->sort_column,
+            'sort_direction' => $this->sort_direction,
+        ], $page);
+    }
+
+    /**
+     * @param  array<string, mixed>  $state
+     */
+    public static function applyStateToPage(array $state, object $page): void
+    {
         if (property_exists($page, 'tableFilters')) {
-            $page->tableFilters = $this->filters ?? [];
+            $page->tableFilters = (array) ($state['filters'] ?? []);
         }
 
         if (property_exists($page, 'tableDeferredFilters')) {
-            $page->tableDeferredFilters = $this->filters ?? [];
+            $page->tableDeferredFilters = (array) ($state['filters'] ?? []);
         }
 
         if (property_exists($page, 'tableColumnSearches')) {
-            $page->tableColumnSearches = $this->column_searches ?? [];
+            $page->tableColumnSearches = (array) ($state['column_searches'] ?? []);
         }
 
         if (property_exists($page, 'tableSearch')) {
-            $page->tableSearch = (string) ($this->search ?? '');
+            $page->tableSearch = (string) ($state['search'] ?? '');
         }
 
         if (property_exists($page, 'tableSort')) {
-            $page->tableSort = filled($this->sort_column)
-                ? sprintf('%s:%s', $this->sort_column, $this->sort_direction ?: 'asc')
+            $page->tableSort = filled($state['sort_column'] ?? null)
+                ? sprintf('%s:%s', $state['sort_column'], $state['sort_direction'] ?: 'asc')
                 : null;
         }
 

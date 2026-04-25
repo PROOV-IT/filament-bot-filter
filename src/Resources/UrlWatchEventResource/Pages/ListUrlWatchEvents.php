@@ -16,6 +16,7 @@ use Filament\Support\Enums\Width;
 use Proovit\FilamentUrlWatcher\Models\UrlWatchSavedView;
 use Proovit\FilamentUrlWatcher\Resources\UrlWatchEventResource;
 use Proovit\FilamentUrlWatcher\Resources\UrlWatchSavedViewResource;
+use Proovit\FilamentUrlWatcher\Support\Filament\UrlWatchDefaultViewPresets;
 
 final class ListUrlWatchEvents extends ListRecords
 {
@@ -117,6 +118,41 @@ final class ListUrlWatchEvents extends ListRecords
 
                     Notification::make()
                         ->title(__('filament-url-watcher::filament-url-watcher.saved_views.notifications.loaded.title'))
+                        ->success()
+                        ->send();
+                }),
+            Action::make('load_preset')
+                ->label(__('filament-url-watcher::filament-url-watcher.saved_views.actions.load_preset'))
+                ->icon('heroicon-o-sparkles')
+                ->color('gray')
+                ->modalWidth(Width::Medium)
+                ->schema([
+                    Select::make('preset_key')
+                        ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.preset'))
+                        ->options(UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_EVENTS))
+                        ->searchable()
+                        ->required(),
+                ])
+                ->action(function (array $data): void {
+                    $preset = UrlWatchDefaultViewPresets::find(UrlWatchSavedView::TARGET_EVENTS, (string) $data['preset_key']);
+
+                    if ($preset === null) {
+                        Notification::make()
+                            ->title(__('filament-url-watcher::filament-url-watcher.saved_views.notifications.missing_preset.title'))
+                            ->danger()
+                            ->send();
+
+                        return;
+                    }
+
+                    UrlWatchSavedView::applyStateToPage($preset['state'], $this);
+
+                    if (method_exists($this, 'getTable') && $this->getTable()->hasDeferredFilters() && method_exists($this, 'applyTableFilters')) {
+                        $this->applyTableFilters();
+                    }
+
+                    Notification::make()
+                        ->title(__('filament-url-watcher::filament-url-watcher.saved_views.notifications.loaded_preset.title', ['name' => $preset['name']]))
                         ->success()
                         ->send();
                 }),

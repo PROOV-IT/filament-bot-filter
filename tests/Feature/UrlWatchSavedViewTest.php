@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Proovit\FilamentUrlWatcher\Models\UrlWatchSavedView;
+use Proovit\FilamentUrlWatcher\Support\Filament\UrlWatchDefaultViewPresets;
 
 it('captures a saved view state from table filters and sorting', function (): void {
     $payload = UrlWatchSavedView::captureFromPageState([
@@ -104,4 +105,54 @@ it('exposes a translated target label', function (): void {
     ]);
 
     expect($view->target_label)->toBeString()->not->toBe('');
+});
+
+it('applies a preset state to a table-like page object', function (): void {
+    $preset = UrlWatchDefaultViewPresets::find(UrlWatchSavedView::TARGET_EVENTS, 'recent_404s');
+
+    expect($preset)->not->toBeNull();
+
+    $page = new class
+    {
+        public ?array $tableFilters = null;
+
+        public ?array $tableDeferredFilters = null;
+
+        public array $tableColumnSearches = [];
+
+        public string $tableSearch = '';
+
+        public ?string $tableSort = null;
+
+        public int $resetPageCalls = 0;
+
+        public int $updatedFiltersCalls = 0;
+
+        public function updatedTableFilters(): void
+        {
+            $this->updatedFiltersCalls++;
+        }
+
+        public function resetPage(): void
+        {
+            $this->resetPageCalls++;
+        }
+    };
+
+    UrlWatchSavedView::applyStateToPage($preset['state'], $page);
+
+    expect($page->tableFilters)->toBe(['status_code' => ['value' => '404']])
+        ->and($page->tableSort)->toBe('occurred_at:desc')
+        ->and($page->updatedFiltersCalls)->toBeGreaterThan(0)
+        ->and($page->resetPageCalls)->toBeGreaterThan(0);
+});
+
+it('exposes translated preset options per target', function (): void {
+    $watchPresets = UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_WATCHES);
+    $eventPresets = UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_EVENTS);
+
+    expect($watchPresets)->toHaveKey('pending_review')
+        ->and($watchPresets)->toHaveKey('confirmed_bots')
+        ->and($eventPresets)->toHaveKey('recent_404s')
+        ->and($eventPresets)->toHaveKey('confirmed_bot_timeline');
 });

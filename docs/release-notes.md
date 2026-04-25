@@ -16,3 +16,9 @@
 - saved views extended to the URL watch event history
 - top hosts widget
 - retention controls and maintenance actions from the settings page
+
+## 0.3.1
+
+- operator presets for watches and event history
+- direct preset loading from the watches and events list pages
+- event status filter added to support reusable presets such as recent 404s

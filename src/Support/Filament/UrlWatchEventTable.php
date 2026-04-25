@@ -71,6 +71,15 @@ final class UrlWatchEventTable
                         'b2b' => __('filament-url-watcher::filament-url-watcher.table.panel.b2b'),
                         'other' => __('filament-url-watcher::filament-url-watcher.table.panel.other'),
                     ]),
+                SelectFilter::make('status_code')
+                    ->label(__('filament-url-watcher::filament-url-watcher.fields.status_code'))
+                    ->options([
+                        '404' => '404',
+                        '405' => '405',
+                        '419' => '419',
+                        '429' => '429',
+                        '500' => '500',
+                    ]),
                 SelectFilter::make('classification')
                     ->label(__('filament-url-watcher::filament-url-watcher.fields.classification'))
                     ->options(collect(UrlWatchClassification::cases())->mapWithKeys(

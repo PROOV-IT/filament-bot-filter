@@ -202,6 +202,7 @@ return [
             'last_applied_at' => 'Last applied at',
             'updated_at' => 'Updated at',
             'saved_view' => 'Saved view',
+            'preset' => 'Preset view',
         ],
         'placeholders' => [
             'panel' => 'Any panel',
@@ -218,6 +219,7 @@ return [
         'actions' => [
             'save_current_view' => 'Save current view',
             'load_view' => 'Load saved view',
+            'load_preset' => 'Load preset',
             'manage' => 'Manage saved views',
         ],
         'notifications' => [
@@ -226,6 +228,12 @@ return [
             ],
             'loaded' => [
                 'title' => 'Saved view loaded',
+            ],
+            'loaded_preset' => [
+                'title' => 'Preset loaded: :name',
+            ],
+            'missing_preset' => [
+                'title' => 'Preset not found',
             ],
         ],
         'scopes' => [
@@ -236,6 +244,36 @@ return [
             'filters' => ':count filter(s)',
             'column_searches' => ':count column search(es)',
             'sort' => ':column :direction',
+        ],
+    ],
+    'presets' => [
+        'watches' => [
+            'pending_review' => [
+                'name' => 'Pending review',
+                'description' => 'Show watches still awaiting operator classification.',
+            ],
+            'confirmed_bots' => [
+                'name' => 'Confirmed bots',
+                'description' => 'Focus on watched URLs already classified as bot traffic.',
+            ],
+            'admin_panel_noise' => [
+                'name' => 'Admin panel noise',
+                'description' => 'Show incidents hitting the admin panel only.',
+            ],
+        ],
+        'events' => [
+            'recent_404s' => [
+                'name' => 'Recent 404 events',
+                'description' => 'Review the latest not-found requests first.',
+            ],
+            'write_attempts' => [
+                'name' => 'Write attempts',
+                'description' => 'Focus on POST activity and other potentially intrusive requests.',
+            ],
+            'confirmed_bot_timeline' => [
+                'name' => 'Confirmed bot timeline',
+                'description' => 'Inspect the most recent events tied to watches classified as bots.',
+            ],
         ],
     ],
     'widgets' => [

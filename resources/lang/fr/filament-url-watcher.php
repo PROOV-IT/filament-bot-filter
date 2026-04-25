@@ -202,6 +202,7 @@ return [
             'last_applied_at' => 'Dernière application',
             'updated_at' => 'Mis à jour le',
             'saved_view' => 'Vue enregistrée',
+            'preset' => 'Vue prédéfinie',
         ],
         'placeholders' => [
             'panel' => 'Tous les panels',
@@ -218,6 +219,7 @@ return [
         'actions' => [
             'save_current_view' => 'Enregistrer la vue courante',
             'load_view' => 'Charger une vue enregistrée',
+            'load_preset' => 'Charger un preset',
             'manage' => 'Gérer les vues enregistrées',
         ],
         'notifications' => [
@@ -226,6 +228,12 @@ return [
             ],
             'loaded' => [
                 'title' => 'Vue chargée',
+            ],
+            'loaded_preset' => [
+                'title' => 'Preset chargé : :name',
+            ],
+            'missing_preset' => [
+                'title' => 'Preset introuvable',
             ],
         ],
         'scopes' => [
@@ -236,6 +244,36 @@ return [
             'filters' => ':count filtre(s)',
             'column_searches' => ':count recherche(s) de colonne',
             'sort' => ':column :direction',
+        ],
+    ],
+    'presets' => [
+        'watches' => [
+            'pending_review' => [
+                'name' => 'À qualifier',
+                'description' => 'Affiche les surveillances encore en attente de qualification opérateur.',
+            ],
+            'confirmed_bots' => [
+                'name' => 'Bots confirmés',
+                'description' => 'Met l’accent sur les URLs déjà classées comme trafic bot.',
+            ],
+            'admin_panel_noise' => [
+                'name' => 'Bruit panel admin',
+                'description' => 'Affiche uniquement les incidents qui touchent le panel admin.',
+            ],
+        ],
+        'events' => [
+            'recent_404s' => [
+                'name' => 'Derniers 404',
+                'description' => 'Permet de relire d’abord les derniers accès introuvables.',
+            ],
+            'write_attempts' => [
+                'name' => 'Tentatives d’écriture',
+                'description' => 'Met en avant l’activité POST et les requêtes potentiellement intrusives.',
+            ],
+            'confirmed_bot_timeline' => [
+                'name' => 'Chronologie bots confirmés',
+                'description' => 'Affiche les événements récents rattachés aux surveillances classées bot.',
+            ],
         ],
     ],
     'widgets' => [
