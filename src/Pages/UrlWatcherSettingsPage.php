@@ -90,6 +90,11 @@ final class UrlWatcherSettingsPage extends Page
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('sync_default_views')
+                ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.actions.sync_default_views'))
+                ->icon('heroicon-o-squares-2x2')
+                ->color('gray')
+                ->action(fn () => $this->runCommand('url-watcher:sync-default-views')),
             Action::make('send_digest')
                 ->label(__('filament-url-watcher::filament-url-watcher.pages.settings.actions.send_digest'))
                 ->icon('heroicon-o-envelope')

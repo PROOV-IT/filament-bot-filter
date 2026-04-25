@@ -10,6 +10,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table as FilamentTable;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,6 +34,9 @@ final class UrlWatchSavedViewTable
                 TextColumn::make('panel_label')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel'))
                     ->sortable(query: fn (Builder $query, string $direction): Builder => $query->orderBy('panel', $direction)),
+                IconColumn::make('is_system')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.is_system'))
+                    ->boolean(),
                 IconColumn::make('is_default')
                     ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.is_default'))
                     ->boolean(),
@@ -91,14 +95,38 @@ final class UrlWatchSavedViewTable
                             $query->where('is_default', false);
                         }
                     }),
+                Filter::make('is_system')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.is_system'))
+                    ->query(fn (Builder $query): Builder => $query->where('is_system', true)),
             ])
             ->recordActions([
                 Action::make('view')
                     ->label(__('filament-url-watcher::filament-url-watcher.actions.view'))
                     ->icon('heroicon-o-eye')
                     ->url(fn (UrlWatchSavedView $record) => UrlWatchSavedViewResource::getUrl('view', ['record' => $record])),
-                EditAction::make(),
-                DeleteAction::make(),
+                Action::make('clone')
+                    ->label(__('filament-url-watcher::filament-url-watcher.saved_views.actions.clone'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->action(function (UrlWatchSavedView $record): void {
+                        $clone = $record->replicate([
+                            'preset_key',
+                            'is_system',
+                            'applied_count',
+                            'last_applied_at',
+                        ]);
+
+                        $clone->name = __('filament-url-watcher::filament-url-watcher.saved_views.values.clone_name', ['name' => $record->name]);
+                        $clone->preset_key = null;
+                        $clone->is_system = false;
+                        $clone->is_default = false;
+                        $clone->applied_count = 0;
+                        $clone->last_applied_at = null;
+                        $clone->save();
+                    }),
+                EditAction::make()
+                    ->hidden(fn (UrlWatchSavedView $record): bool => (bool) $record->is_system),
+                DeleteAction::make()
+                    ->hidden(fn (UrlWatchSavedView $record): bool => (bool) $record->is_system),
             ])
             ->toolbarActions([
                 DeleteBulkAction::make(),

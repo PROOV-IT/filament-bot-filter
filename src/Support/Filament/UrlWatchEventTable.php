@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Proovit\FilamentUrlWatcher\Support\Filament;
 
 use Filament\Actions\Action;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table as FilamentTable;
 use Illuminate\Database\Eloquent\Builder;
@@ -93,6 +95,23 @@ final class UrlWatchEventTable
                         $query->whereHas('urlWatch', function (Builder $watchQuery) use ($data): void {
                             $watchQuery->where('classification', $data['value']);
                         });
+                    }),
+                Filter::make('occurred_on')
+                    ->label(__('filament-url-watcher::filament-url-watcher.fields.occurred_at'))
+                    ->schema([
+                        DatePicker::make('occurred_from')
+                            ->label(__('filament-url-watcher::filament-url-watcher.filters.occurred_from')),
+                        DatePicker::make('occurred_until')
+                            ->label(__('filament-url-watcher::filament-url-watcher.filters.occurred_until')),
+                    ])
+                    ->query(function (Builder $query, array $data): void {
+                        if (filled($data['occurred_from'] ?? null)) {
+                            $query->whereDate('occurred_at', '>=', $data['occurred_from']);
+                        }
+
+                        if (filled($data['occurred_until'] ?? null)) {
+                            $query->whereDate('occurred_at', '<=', $data['occurred_until']);
+                        }
                     }),
             ])
             ->recordActions([

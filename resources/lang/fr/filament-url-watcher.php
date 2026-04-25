@@ -108,6 +108,7 @@ return [
             'actions' => [
                 'save' => 'Enregistrer',
                 'reset_defaults' => 'Réinitialiser les valeurs par défaut',
+                'sync_default_views' => 'Synchroniser les vues par défaut',
                 'send_digest' => 'Envoyer le digest',
                 'run_retention' => 'Lancer la rétention',
             ],
@@ -157,6 +158,10 @@ return [
         'notified_at' => 'Notifié le',
         'meta' => 'Payload',
     ],
+    'filters' => [
+        'occurred_from' => 'Survenu à partir du',
+        'occurred_until' => 'Survenu jusqu’au',
+    ],
     'table' => [
         'panel' => [
             'admin' => 'Admin',
@@ -203,6 +208,7 @@ return [
             'updated_at' => 'Mis à jour le',
             'saved_view' => 'Vue enregistrée',
             'preset' => 'Vue prédéfinie',
+            'is_system' => 'Vue système',
         ],
         'placeholders' => [
             'panel' => 'Tous les panels',
@@ -211,6 +217,9 @@ return [
         'values' => [
             'yes' => 'Oui',
             'no' => 'Non',
+            'system' => 'Système',
+            'custom' => 'Personnalisée',
+            'clone_name' => ':name (copie)',
         ],
         'targets' => [
             'watches' => 'Surveillances',
@@ -220,6 +229,7 @@ return [
             'save_current_view' => 'Enregistrer la vue courante',
             'load_view' => 'Charger une vue enregistrée',
             'load_preset' => 'Charger un preset',
+            'clone' => 'Cloner en vue personnalisée',
             'manage' => 'Gérer les vues enregistrées',
         ],
         'notifications' => [
@@ -259,6 +269,10 @@ return [
             'admin_panel_noise' => [
                 'name' => 'Bruit panel admin',
                 'description' => 'Affiche uniquement les incidents qui touchent le panel admin.',
+            ],
+            'reviewed' => [
+                'name' => 'Surveillances revues',
+                'description' => 'Met l’accent sur les surveillances déjà revues par les opérateurs.',
             ],
         ],
         'events' => [

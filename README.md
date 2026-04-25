@@ -27,7 +27,14 @@ The plugin also exposes:
 - digest and retention settings, including mail target, title, intro, recent event count, and pruning window
 - a saved views resource for operator-defined investigation views
 - built-in operator presets such as pending review, confirmed bots, recent 404s, and write attempts
+- a sync command so built-in operator presets can also exist as persistent saved views
 - row and bulk classification actions on the URL watch table
+
+To persist the built-in operator presets as saved views that can be cloned and adjusted:
+
+```bash
+php artisan url-watcher:sync-default-views
+```
 
 ## Documentation
 

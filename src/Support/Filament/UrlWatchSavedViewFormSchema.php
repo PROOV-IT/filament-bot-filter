@@ -36,6 +36,10 @@ final class UrlWatchSavedViewFormSchema
                             ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.panel'))
                             ->options(self::panelOptions())
                             ->placeholder(__('filament-url-watcher::filament-url-watcher.saved_views.placeholders.panel')),
+                        Checkbox::make('is_system')
+                            ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.is_system'))
+                            ->disabled()
+                            ->dehydrated(false),
                         Textarea::make('description')
                             ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.description'))
                             ->rows(4)

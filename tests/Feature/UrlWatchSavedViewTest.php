@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Artisan;
 use Proovit\FilamentUrlWatcher\Models\UrlWatchSavedView;
 use Proovit\FilamentUrlWatcher\Support\Filament\UrlWatchDefaultViewPresets;
 
@@ -155,4 +156,12 @@ it('exposes translated preset options per target', function (): void {
         ->and($watchPresets)->toHaveKey('confirmed_bots')
         ->and($eventPresets)->toHaveKey('recent_404s')
         ->and($eventPresets)->toHaveKey('confirmed_bot_timeline');
+});
+
+it('syncs default presets into saved views', function (): void {
+    expect(Artisan::call('url-watcher:sync-default-views'))->toBe(0);
+
+    expect(UrlWatchSavedView::query()->where('is_system', true)->count())->toBeGreaterThan(0)
+        ->and(UrlWatchSavedView::query()->where('preset_key', 'watches:pending_review')->exists())->toBeTrue()
+        ->and(UrlWatchSavedView::query()->where('preset_key', 'events:recent_404s')->exists())->toBeTrue();
 });

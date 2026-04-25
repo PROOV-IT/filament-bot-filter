@@ -108,6 +108,7 @@ return [
             'actions' => [
                 'save' => 'Save changes',
                 'reset_defaults' => 'Reset defaults',
+                'sync_default_views' => 'Sync default views',
                 'send_digest' => 'Send digest now',
                 'run_retention' => 'Run retention now',
             ],
@@ -157,6 +158,10 @@ return [
         'notified_at' => 'Notified at',
         'meta' => 'Payload',
     ],
+    'filters' => [
+        'occurred_from' => 'Occurred from',
+        'occurred_until' => 'Occurred until',
+    ],
     'table' => [
         'panel' => [
             'admin' => 'Admin',
@@ -203,6 +208,7 @@ return [
             'updated_at' => 'Updated at',
             'saved_view' => 'Saved view',
             'preset' => 'Preset view',
+            'is_system' => 'System view',
         ],
         'placeholders' => [
             'panel' => 'Any panel',
@@ -211,6 +217,9 @@ return [
         'values' => [
             'yes' => 'Yes',
             'no' => 'No',
+            'system' => 'System',
+            'custom' => 'Custom',
+            'clone_name' => ':name (copy)',
         ],
         'targets' => [
             'watches' => 'Watches',
@@ -220,6 +229,7 @@ return [
             'save_current_view' => 'Save current view',
             'load_view' => 'Load saved view',
             'load_preset' => 'Load preset',
+            'clone' => 'Clone as custom',
             'manage' => 'Manage saved views',
         ],
         'notifications' => [
@@ -259,6 +269,10 @@ return [
             'admin_panel_noise' => [
                 'name' => 'Admin panel noise',
                 'description' => 'Show incidents hitting the admin panel only.',
+            ],
+            'reviewed' => [
+                'name' => 'Reviewed watches',
+                'description' => 'Focus on watches already reviewed by operators.',
             ],
         ],
         'events' => [

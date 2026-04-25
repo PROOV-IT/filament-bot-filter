@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Proovit\FilamentUrlWatcher;
 
 use Illuminate\Support\ServiceProvider;
+use Proovit\FilamentUrlWatcher\Console\Commands\SyncUrlWatchDefaultViewsCommand;
 
 final class FilamentUrlWatcherServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ final class FilamentUrlWatcherServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
+            $this->commands([
+                SyncUrlWatchDefaultViewsCommand::class,
+            ]);
+
             $this->publishes([
                 __DIR__.'/../config/filament-url-watcher.php' => config_path('filament-url-watcher.php'),
             ], 'filament-url-watcher-config');

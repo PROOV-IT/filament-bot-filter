@@ -16,6 +16,12 @@ $panel->plugins([
 
 Then make sure the core package `proovit/laravel-url-watcher` is installed and its middleware is prepended globally in `bootstrap/app.php`.
 
+Sync the built-in operator presets into persistent saved views:
+
+```bash
+php artisan url-watcher:sync-default-views
+```
+
 The plugin registers:
 
 - the URL watch resource
@@ -42,5 +48,19 @@ Saved views persist the table search, sorting, filters and column searches so op
 
 The settings page also exposes operator actions to:
 
+- sync the built-in default views
 - send the digest immediately
 - run the retention command immediately
+
+## Suggested scheduling
+
+The Filament plugin does not schedule tasks itself. The host app should schedule the core commands, for example in `routes/console.php`:
+
+```php
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('url-watcher:digest')->hourly();
+Schedule::command('url-watcher:prune')->dailyAt('02:00');
+```
+
+That keeps all operational behavior in the Laravel app while the plugin remains a cockpit for review and manual execution.

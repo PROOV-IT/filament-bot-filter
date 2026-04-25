@@ -22,6 +22,42 @@ final class ListUrlWatchEvents extends ListRecords
 {
     protected static string $resource = UrlWatchEventResource::class;
 
+    public function mount(): void
+    {
+        parent::mount();
+
+        $search = trim((string) request()->query('search', ''));
+        $date = trim((string) request()->query('occurred_on', ''));
+        $presetKey = request()->query('preset');
+
+        if (filled($presetKey)) {
+            $preset = UrlWatchDefaultViewPresets::find(UrlWatchSavedView::TARGET_EVENTS, (string) $presetKey);
+
+            if ($preset !== null) {
+                UrlWatchSavedView::applyStateToPage($preset['state'], $this);
+            }
+        }
+
+        if ($search !== '') {
+            $this->tableSearch = $search;
+        }
+
+        if ($date !== '') {
+            $filters = $this->tableDeferredFilters ?? $this->tableFilters ?? [];
+            $filters['occurred_on'] = [
+                'occurred_from' => $date,
+                'occurred_until' => $date,
+            ];
+
+            $this->tableFilters = $filters;
+            $this->tableDeferredFilters = $filters;
+        }
+
+        if ((filled($presetKey) || $search !== '' || $date !== '') && method_exists($this, 'getTable') && $this->getTable()->hasDeferredFilters() && method_exists($this, 'applyTableFilters')) {
+            $this->applyTableFilters();
+        }
+    }
+
     protected function getHeaderActions(): array
     {
         return [

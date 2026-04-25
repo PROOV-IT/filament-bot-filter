@@ -27,6 +27,7 @@ final class UrlWatchSavedView extends Model
         'filters' => 'array',
         'column_searches' => 'array',
         'is_default' => 'bool',
+        'is_system' => 'bool',
         'applied_count' => 'int',
         'last_applied_at' => 'datetime',
     ];
@@ -186,5 +187,12 @@ final class UrlWatchSavedView extends Model
             self::TARGET_EVENTS => __('filament-url-watcher::filament-url-watcher.saved_views.targets.events'),
             default => __('filament-url-watcher::filament-url-watcher.saved_views.targets.watches'),
         };
+    }
+
+    public function getPresetLabelAttribute(): string
+    {
+        return filled($this->preset_key)
+            ? __('filament-url-watcher::filament-url-watcher.saved_views.values.system')
+            : __('filament-url-watcher::filament-url-watcher.saved_views.values.custom');
     }
 }

@@ -22,6 +22,25 @@ final class ListUrlWatches extends ManageRecords
 {
     protected static string $resource = UrlWatchResource::class;
 
+    public function mount(): void
+    {
+        parent::mount();
+
+        $presetKey = request()->query('preset');
+
+        if (filled($presetKey)) {
+            $preset = UrlWatchDefaultViewPresets::find(UrlWatchSavedView::TARGET_WATCHES, (string) $presetKey);
+
+            if ($preset !== null) {
+                UrlWatchSavedView::applyStateToPage($preset['state'], $this);
+
+                if (method_exists($this, 'getTable') && $this->getTable()->hasDeferredFilters() && method_exists($this, 'applyTableFilters')) {
+                    $this->applyTableFilters();
+                }
+            }
+        }
+    }
+
     protected function getHeaderActions(): array
     {
         return [
