@@ -29,3 +29,8 @@
 - system saved views with clone-first workflow for customization
 - widget drill-down URLs to watches and event history
 - scheduling guidance aligned with the core package
+
+## 0.3.3
+
+- panel-aware smart presets for admin, manager, and B2B contexts
+- persistent system presets with preset keys and clone-first customization

@@ -270,6 +270,14 @@ return [
                 'name' => 'Admin panel noise',
                 'description' => 'Show incidents hitting the admin panel only.',
             ],
+            'manager_panel_noise' => [
+                'name' => 'Manager panel noise',
+                'description' => 'Show incidents hitting the manager panel only.',
+            ],
+            'b2b_panel_noise' => [
+                'name' => 'B2B panel noise',
+                'description' => 'Show incidents hitting the B2B panel only.',
+            ],
             'reviewed' => [
                 'name' => 'Reviewed watches',
                 'description' => 'Focus on watches already reviewed by operators.',
@@ -287,6 +295,10 @@ return [
             'confirmed_bot_timeline' => [
                 'name' => 'Confirmed bot timeline',
                 'description' => 'Inspect the most recent events tied to watches classified as bots.',
+            ],
+            'admin_recent_404s' => [
+                'name' => 'Admin 404 timeline',
+                'description' => 'Inspect recent 404 events that hit the admin panel.',
             ],
         ],
     ],

@@ -151,11 +151,14 @@ it('applies a preset state to a table-like page object', function (): void {
 it('exposes translated preset options per target', function (): void {
     $watchPresets = UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_WATCHES);
     $eventPresets = UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_EVENTS);
+    $managerWatchPresets = UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_WATCHES, 'manager');
 
     expect($watchPresets)->toHaveKey('pending_review')
         ->and($watchPresets)->toHaveKey('confirmed_bots')
         ->and($eventPresets)->toHaveKey('recent_404s')
-        ->and($eventPresets)->toHaveKey('confirmed_bot_timeline');
+        ->and($eventPresets)->toHaveKey('confirmed_bot_timeline')
+        ->and($managerWatchPresets)->toHaveKey('manager_panel_noise')
+        ->and($managerWatchPresets)->not->toHaveKey('admin_panel_noise');
 });
 
 it('syncs default presets into saved views', function (): void {

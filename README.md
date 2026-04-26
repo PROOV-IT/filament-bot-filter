@@ -30,6 +30,11 @@ The plugin also exposes:
 - a sync command so built-in operator presets can also exist as persistent saved views
 - row and bulk classification actions on the URL watch table
 
+Presets are now context-aware:
+
+- global presets are always available
+- panel-specific presets are only exposed on matching panels like `admin`, `manager`, or `b2b`
+
 To persist the built-in operator presets as saved views that can be cloned and adjusted:
 
 ```bash

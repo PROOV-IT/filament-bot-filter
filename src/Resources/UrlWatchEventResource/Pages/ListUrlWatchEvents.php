@@ -165,7 +165,10 @@ final class ListUrlWatchEvents extends ListRecords
                 ->schema([
                     Select::make('preset_key')
                         ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.preset'))
-                        ->options(UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_EVENTS))
+                        ->options(UrlWatchDefaultViewPresets::optionsForTarget(
+                            UrlWatchSavedView::TARGET_EVENTS,
+                            Filament::getCurrentPanel()?->getId(),
+                        ))
                         ->searchable()
                         ->required(),
                 ])

@@ -22,6 +22,8 @@ Sync the built-in operator presets into persistent saved views:
 php artisan url-watcher:sync-default-views
 ```
 
+The sync creates system views that remain tied to the package through `preset_key`. Operators can then clone a system view into a custom one before editing it.
+
 The plugin registers:
 
 - the URL watch resource

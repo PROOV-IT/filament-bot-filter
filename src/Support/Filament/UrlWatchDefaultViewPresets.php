@@ -16,22 +16,37 @@ final class UrlWatchDefaultViewPresets
     }
 
     /**
-     * @return array<string, array{name: string, description: string, state: array<string, mixed>}>
+     * @return array<string, array{name: string, description: string, state: array<string, mixed>, panels?: array<int, string>}>
      */
-    public static function forTarget(string $target): array
+    public static function forTarget(string $target, ?string $panel = null): array
     {
-        return match ($target) {
+        $presets = match ($target) {
             UrlWatchSavedView::TARGET_EVENTS => self::eventPresets(),
             default => self::watchPresets(),
         };
+
+        $panel = filled($panel) ? strtolower(trim((string) $panel)) : null;
+
+        if ($panel === null) {
+            return $presets;
+        }
+
+        return array_filter($presets, static function (array $preset) use ($panel): bool {
+            $panels = array_map(
+                static fn (mixed $value): string => strtolower(trim((string) $value)),
+                (array) ($preset['panels'] ?? []),
+            );
+
+            return $panels === [] || in_array($panel, $panels, true);
+        });
     }
 
     /**
      * @return array<string, string>
      */
-    public static function optionsForTarget(string $target): array
+    public static function optionsForTarget(string $target, ?string $panel = null): array
     {
-        return collect(self::forTarget($target))
+        return collect(self::forTarget($target, $panel))
             ->mapWithKeys(static fn (array $preset, string $key): array => [$key => $preset['name']])
             ->all();
     }
@@ -53,10 +68,15 @@ final class UrlWatchDefaultViewPresets
 
         foreach ([UrlWatchSavedView::TARGET_WATCHES, UrlWatchSavedView::TARGET_EVENTS] as $target) {
             foreach (self::forTarget($target) as $presetKey => $preset) {
+                $panels = array_values(array_filter(array_map(
+                    static fn (mixed $value): string => trim((string) $value),
+                    (array) ($preset['panels'] ?? []),
+                )));
+
                 $rows[] = [
                     'preset_key' => self::key($target, $presetKey),
                     'target' => $target,
-                    'panel' => null,
+                    'panel' => count($panels) === 1 ? $panels[0] : null,
                     'name' => $preset['name'],
                     'description' => $preset['description'],
                     'search' => $preset['state']['search'] ?? null,
@@ -104,11 +124,36 @@ final class UrlWatchDefaultViewPresets
             'admin_panel_noise' => [
                 'name' => __('filament-url-watcher::filament-url-watcher.presets.watches.admin_panel_noise.name'),
                 'description' => __('filament-url-watcher::filament-url-watcher.presets.watches.admin_panel_noise.description'),
+                'panels' => ['admin'],
                 'state' => [
                     'sort_column' => 'last_seen_at',
                     'sort_direction' => 'desc',
                     'filters' => [
                         'panel' => ['value' => 'admin'],
+                    ],
+                ],
+            ],
+            'manager_panel_noise' => [
+                'name' => __('filament-url-watcher::filament-url-watcher.presets.watches.manager_panel_noise.name'),
+                'description' => __('filament-url-watcher::filament-url-watcher.presets.watches.manager_panel_noise.description'),
+                'panels' => ['manager'],
+                'state' => [
+                    'sort_column' => 'last_seen_at',
+                    'sort_direction' => 'desc',
+                    'filters' => [
+                        'panel' => ['value' => 'manager'],
+                    ],
+                ],
+            ],
+            'b2b_panel_noise' => [
+                'name' => __('filament-url-watcher::filament-url-watcher.presets.watches.b2b_panel_noise.name'),
+                'description' => __('filament-url-watcher::filament-url-watcher.presets.watches.b2b_panel_noise.description'),
+                'panels' => ['b2b'],
+                'state' => [
+                    'sort_column' => 'last_seen_at',
+                    'sort_direction' => 'desc',
+                    'filters' => [
+                        'panel' => ['value' => 'b2b'],
                     ],
                 ],
             ],
@@ -162,6 +207,19 @@ final class UrlWatchDefaultViewPresets
                     'sort_direction' => 'desc',
                     'filters' => [
                         'classification' => ['value' => UrlWatchClassification::Bot->value],
+                    ],
+                ],
+            ],
+            'admin_recent_404s' => [
+                'name' => __('filament-url-watcher::filament-url-watcher.presets.events.admin_recent_404s.name'),
+                'description' => __('filament-url-watcher::filament-url-watcher.presets.events.admin_recent_404s.description'),
+                'panels' => ['admin'],
+                'state' => [
+                    'sort_column' => 'occurred_at',
+                    'sort_direction' => 'desc',
+                    'filters' => [
+                        'panel' => ['value' => 'admin'],
+                        'status_code' => ['value' => '404'],
                     ],
                 ],
             ],

@@ -270,6 +270,14 @@ return [
                 'name' => 'Bruit panel admin',
                 'description' => 'Affiche uniquement les incidents qui touchent le panel admin.',
             ],
+            'manager_panel_noise' => [
+                'name' => 'Bruit panel manager',
+                'description' => 'Affiche uniquement les incidents qui touchent le panel manager.',
+            ],
+            'b2b_panel_noise' => [
+                'name' => 'Bruit panel B2B',
+                'description' => 'Affiche uniquement les incidents qui touchent le panel B2B.',
+            ],
             'reviewed' => [
                 'name' => 'Surveillances revues',
                 'description' => 'Met l’accent sur les surveillances déjà revues par les opérateurs.',
@@ -287,6 +295,10 @@ return [
             'confirmed_bot_timeline' => [
                 'name' => 'Chronologie bots confirmés',
                 'description' => 'Affiche les événements récents rattachés aux surveillances classées bot.',
+            ],
+            'admin_recent_404s' => [
+                'name' => '404 admin récents',
+                'description' => 'Affiche les derniers 404 qui touchent le panel admin.',
             ],
         ],
     ],

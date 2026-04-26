@@ -20,3 +20,5 @@ Widgets now support direct drill-down:
 - top paths bars open the event history with a pre-filled search
 - top hosts bars open the event history filtered by host search
 - trend points open the event history for the selected day
+
+Operator presets are also context-aware. For example, an admin panel can expose admin-only presets without cluttering manager or B2B panels with irrelevant options.

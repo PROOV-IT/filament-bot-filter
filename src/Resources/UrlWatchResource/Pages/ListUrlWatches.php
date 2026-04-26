@@ -144,7 +144,10 @@ final class ListUrlWatches extends ManageRecords
                 ->schema([
                     Select::make('preset_key')
                         ->label(__('filament-url-watcher::filament-url-watcher.saved_views.fields.preset'))
-                        ->options(UrlWatchDefaultViewPresets::optionsForTarget(UrlWatchSavedView::TARGET_WATCHES))
+                        ->options(UrlWatchDefaultViewPresets::optionsForTarget(
+                            UrlWatchSavedView::TARGET_WATCHES,
+                            Filament::getCurrentPanel()?->getId(),
+                        ))
                         ->searchable()
                         ->required(),
                 ])
