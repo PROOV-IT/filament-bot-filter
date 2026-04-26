@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.3.4
+
+- Added panel-aware smart presets and persistent operator views for URL watcher investigations
+
 ## 0.1.0
 
 - initial Filament URL watcher plugin scaffold

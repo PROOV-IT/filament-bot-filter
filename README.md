@@ -47,3 +47,9 @@ php artisan url-watcher:sync-default-views
 - [Configuration](docs/configuration.md)
 - [Widgets](docs/widgets.md)
 - [Release notes](docs/release-notes.md)
+
+## Release notes
+
+### 0.3.4
+
+- Added panel-aware smart presets and persistent operator views for URL watcher investigations
